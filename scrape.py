@@ -16,6 +16,24 @@ soup = BeautifulSoup(page.content, "html.parser")
 results = soup.find_all('tr')
 #print(str(results[1])[start_index:end_index])
 
+# open config file for SMPT configuration
+server = ''
+port = -1
+email = ''
+password = ''
+
+# config file format is strictly enforced.  Email sending will fail if you deviate from it
+try:
+    with open("config.txt", 'r') as file:
+        server = file.readline().strip()
+        port = file.readline().strip()
+        email = file.readline().strip()
+        password = file.readline().strip()
+except FileNotFoundError:
+    print(f"Error: File '{filename}' not found.")
+except Exception as e:
+    print(f"An error occurred: {e}")
+
 # open lastdate file and read the last date
 last_date_string = ''
 try:
